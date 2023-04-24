@@ -11,7 +11,7 @@ export const postimg = async(req,res,next) => {
               console.log(' Dataaa NN is --',name,email,file);
 
              if(!name || !email || !file){
-                return res.json({message : " Please Fill   All Fields  "});
+                return res.json({message : " Please FiLL All FielDDS "});
              }
 
              let userone = await user.findOne({ email });

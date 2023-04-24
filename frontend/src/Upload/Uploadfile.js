@@ -6,7 +6,7 @@ import  axios from 'axios';
 const Uploadfile = () => {
 
     const [inputchange,setinputchange] = useState('');
-    const [previewimg,setpreviewimg] = useState('');
+    const [previewimg,setpreviewimg] = useState(''); 
     const [selectedfile,setselectedfile] = useState('');
 
     const [name,setname] = useState('')
@@ -32,14 +32,15 @@ const Uploadfile = () => {
 
 
    const handlesubmitform = async(e) => {
-        e.preventDefault();
+        e.preventDefault(); 
 
         console.log('form name is ',name) ;
         console.log('form is email',email) ;
         if(!previewimg) return;
+
         console.log('preeee -',previewimg);
 
-        const myform = new FormData();
+         const myform = new FormData();
          console.log(' Before form is --',myform);
 
           myform.append('name',name);
@@ -53,9 +54,13 @@ const Uploadfile = () => {
           }
 
         try{
-          const  { data } = await axios.post('/api/upload/img' , {
-            name,email,image
-          })
+          const  { data } = await axios.post('/api/upload/img' , 
+            {name,email,image}
+          ,
+            { headers : {
+              'Content-type' : 'multipart/form-data',
+            }
+        })
           console.log({message : ' Registered Successd '});
 
         }catch(error){
@@ -81,7 +86,7 @@ const Uploadfile = () => {
   return (
     <div>
         <h1>  Images Uploaded  </h1>
-        <form onSubmit = {handlesubmitform}  >
+        <form onSubmit = {handlesubmitform} encType = 'multipart/form-data' >
 
                     <label htmlFor="name"> Name - </label>
                     <input type = "text"  name = "name" value = {name} placeholder = 'Enter name' 
